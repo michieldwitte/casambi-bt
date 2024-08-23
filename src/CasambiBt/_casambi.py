@@ -205,6 +205,24 @@ class Casambi:
         payload = vertical.to_bytes(1, byteorder="big", signed=False)
         await self._send(target, payload, OpCode.SetVertical)
 
+    async def setHeight(self, target: Union[Unit, Group, None], height: int) -> None:
+        """Set the height for one or multiple units.
+
+        If ``target`` is of type ``Unit`` only this unit is affected.
+        If ``target`` is of type ``Group`` the whole group is affected.
+        if ``target`` is of type ``None`` all units in the network are affected.
+
+        :param target: One or multiple targeted units.
+        :param height: The desired height in range [0, 255].
+        :return: Nothing is returned by this function. To get the new state register a change handler.
+        :raises ValueError: The supplied level isn't in range
+        """
+        if height < 0 or height > 255:
+            raise ValueError()
+
+        payload = height.to_bytes(1, byteorder="big", signed=False)
+        await self._send(target, payload, OpCode.SetHeight)
+
     async def setWhite(self, target: Union[Unit, Group, None], level: int) -> None:
         """Set the white level for one or multiple units.
 

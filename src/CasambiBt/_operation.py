@@ -10,6 +10,7 @@ class OpCode(IntEnum):
     SetWhite = 5
     SetColor = 7
     SetTemperature = 10
+    setHeight = 12
     SetState = 48
 
 
